@@ -11,7 +11,7 @@ window.Game = (function() {
 		this.el = el;
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
-
+		this.calculateGameSize();
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
 	};
@@ -26,6 +26,8 @@ window.Game = (function() {
 			return;
 		}
 
+		this.calculateGameSize();
+		
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
 				delta = now - this.lastFrame;
@@ -74,7 +76,18 @@ window.Game = (function() {
 					that.start();
 				});
 	};
-
+	
+	/**
+	 * Calculates the correct size of the game canvas
+	 */
+	Game.prototype.calculateGameSize = function() {
+		this.fontSize = Math.min(
+			window.innerWidth / this.WORLD_WIDTH,
+			window.innerHeight / this.WORLD_HEIGHT
+		);
+		this.el.css('fontSize', this.fontSize + 'px');
+	};
+	 
 	/**
 	 * Some shared constants.
 	 */
