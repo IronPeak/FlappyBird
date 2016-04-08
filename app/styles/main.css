@@ -29,7 +29,10 @@
 	width: 10em;
 	height: 50em;
 	transform: translateZ(0);
-	background-color: red;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url('../images/wall.png');
 }
 
 .Sun {
@@ -94,6 +97,13 @@
 	background-position: center;
 	background-repeat: repeat-x;
 	background-image: url('../images/ground.jpg');
+}
+
+.ingame-score {
+	z-index: 99;
+	position: absolute;
+	font-size: 5em;
+	right: 1em;
 }
 
 .Scoreboard {
