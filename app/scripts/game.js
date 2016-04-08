@@ -151,11 +151,11 @@ window.Game = (function() {
 		if(this.score > this.highScore)
 		{
 			this.highScore = this.score;
-			this.el.find('#game_msg').text('New Highscore!');
+			this.el.find('#game-msg').text('New Highscore!');
 		}
 		else
 		{
-			this.el.find('#game_msg').text('Game Over!');
+			this.el.find('#game-msg').text('Game Over!');
 		}
 		
 		this.el.find('#score').text(this.score);
