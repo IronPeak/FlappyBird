@@ -1,6 +1,8 @@
 
 window.Controls = (function() {
     'use strict';
+	
+	var SPACE = 32;
 
     /**
      * A singleton class which abstracts all player input,
@@ -27,11 +29,11 @@ window.Controls = (function() {
     };
 	
 	Controls.prototype._onKeyDown = function(e) {
-        this.keydown = (e.keyCode === 32);
+        this.keydown = (e.keyCode === SPACE);
     };
 
     Controls.prototype._onKeyUp = function(e) {
-		if(e.keyCode === 32)
+		if(e.keyCode === SPACE)
 		{
 			this.keydown = false;
 		}
