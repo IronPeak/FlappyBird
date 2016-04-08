@@ -33,14 +33,14 @@ window.Game = (function() {
 	 * entity to update itself.
 	 */
 	Game.prototype.onFrame = function() {
+		this.calculateGameSize();
+		
 		this.soundmanager.music.play();
 		
 		// Check if the game loop should stop.
 		if (!this.isPlaying) {
 			return;
 		}
-
-		this.calculateGameSize();
 		
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
