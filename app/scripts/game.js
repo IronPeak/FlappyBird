@@ -24,6 +24,8 @@ window.Game = (function() {
 		this.highScore = 0;
 		this.soundmanager = new window.SoundManager(this.el.find('#sound'));
 		this.gamestart = +new Date() / 1000;
+		this.ground = new window.Ground(this.el.find('.Ground'), this);
+		this.preloadGameImages();
 	};
 
 	/**
@@ -58,6 +60,8 @@ window.Game = (function() {
 		
 		// Update game entities.
 		this.player.onFrame(delta);
+		
+		this.ground.onFrame(delta);
 		
 		for(var i = 0; i < this.walls.length; i++) {
 			if(this.walls[i] === undefined) {
@@ -183,6 +187,17 @@ window.Game = (function() {
 			window.innerHeight / this.WORLD_HEIGHT
 		);
 		this.el.css('fontSize', this.fontSize + 'px');
+	};
+	
+	/**
+	 * Preloads images for the game so the user won't experiance delay
+	 */
+	Game.prototype.preloadGameImages = function() {
+		var img = new Image();
+		img.src = '../images/player_flap.png';
+		
+		var img = new Image();
+		img.src = '../images/player_dead.png';
 	};
 	 
 	/**
