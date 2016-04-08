@@ -1,7 +1,7 @@
 window.Wall = (function() {
 	'use strict';
 	
-	var SPEED = 20;
+	var SPEED = 25;
 	
 	var WIDTH = 10;
 	var HEIGHT = 50;
