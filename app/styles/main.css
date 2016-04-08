@@ -21,7 +21,7 @@
 }
 
 .Ground {
-	width: 102.4em;
+	width: 200em;
 	height: 2.0em;
 	left: 0;
 	bottom: 0;
@@ -31,12 +31,12 @@
 	background-position: center;
 	background-repeat: repeat-x;
 	background-image: url('../images/ground.jpg');
-	animation: ground-move 2.5s infinite linear;
+	animation: ground-move 2s infinite linear reverse;
 }
 
 @keyframes ground-move {
 	from {
-		left: 50em;
+		left: -50em;
 	}
 	to {
 		left: 0em;

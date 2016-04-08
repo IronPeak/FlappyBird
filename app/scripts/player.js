@@ -50,8 +50,6 @@ window.Player = (function() {
 		
 		this.pos.y -= this.velocity * delta;
 
-		this.checkCollisionWithBounds();
-
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)' + ' rotate(' + this.rotation(this.velocity) + 'deg)');
 		if(this.velocity < 0)
@@ -59,6 +57,8 @@ window.Player = (function() {
 			this.el.css('background-image', 'url("../images/player.png")');
 			this.el.css('animation', 'none');
 		}
+		
+		this.checkCollisionWithBounds();
 	};
 
 	Player.prototype.checkCollisionWithBounds = function() {
