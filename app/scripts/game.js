@@ -24,6 +24,9 @@ window.Game = (function() {
 		this.highScore = 0;
 		this.soundmanager = new window.SoundManager(this.el.find('#sound'));
 		this.gamestart = +new Date() / 1000;
+		this.ground = new window.Ground(this.el.find('.Ground'), this);
+		this.preloadGameImages();
+		this.ingameScore = this.el.find('.ingame-score');
 	};
 
 	/**
@@ -31,14 +34,14 @@ window.Game = (function() {
 	 * entity to update itself.
 	 */
 	Game.prototype.onFrame = function() {
+		this.calculateGameSize();
+		
 		this.soundmanager.music.play();
 		
 		// Check if the game loop should stop.
 		if (!this.isPlaying) {
 			return;
 		}
-
-		this.calculateGameSize();
 		
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
@@ -52,12 +55,14 @@ window.Game = (function() {
 			this.lastWallSpawn = now;
 			var top = -Math.random() * 36 - 12;
 			var bot = top + 67;
-			this.createWall(100, bot);
-			this.createWall(100, top);
+			this.createWall(100, bot, false);
+			this.createWall(100, top, true);
 		}
 		
 		// Update game entities.
 		this.player.onFrame(delta);
+		
+		this.ground.onFrame(delta);
 		
 		for(var i = 0; i < this.walls.length; i++) {
 			if(this.walls[i] === undefined) {
@@ -70,6 +75,7 @@ window.Game = (function() {
 				{
 					this.soundmanager.collect.play();
 					this.score++;
+					this.ingameScore.text(this.score);
 				}
 				if(this.walls[i].collidedWithPlayer(this.player.pos.x, this.player.pos.y, this.player.width, this.player.height) === true)
 				{
@@ -92,18 +98,18 @@ window.Game = (function() {
 		window.requestAnimationFrame(this.onFrame);
 	};
 	
-	Game.prototype.createWall = function(x, y) {
+	Game.prototype.createWall = function(x, y, collectable) {
 		var wall = $('<div class="Wall"></div>');
 		this.el.append(wall);
 		for(var i = 0; i < this.walls.length; i++)
 		{
 			if(this.walls[i] === undefined)
 			{
-				this.walls[i] = new window.Wall(wall, this, x, y);
+				this.walls[i] = new window.Wall(wall, this, x, y, collectable);
 				return;
 			}
 		}
-		this.walls.push(new window.Wall(wall, this, x, y));
+		this.walls.push(new window.Wall(wall, this, x, y, collectable));
 	};
 	
 	Game.prototype.GetTimeBetweenWalls = function(time) {
@@ -183,6 +189,17 @@ window.Game = (function() {
 			window.innerHeight / this.WORLD_HEIGHT
 		);
 		this.el.css('fontSize', this.fontSize + 'px');
+	};
+	
+	/**
+	 * Preloads images for the game so the user won't experiance delay
+	 */
+	Game.prototype.preloadGameImages = function() {
+		var img = new Image();
+		img.src = '../images/player_flap.png';
+		
+		var img = new Image();
+		img.src = '../images/player_dead.png';
 	};
 	 
 	/**
