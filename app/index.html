@@ -28,12 +28,14 @@
             <div class="Player"></div>
             <div class="Ground"></div>
             <div class="Scoreboard">
+				  <div class="Scoreboard-message">
                     <h1 id="game_msg">Game Over!</h1>
                     <div>Your score: <span id="score"></span></div>
-                    <div>High score: <span id="high_score"></span></div>
-                  <div>
-                      <label for="sound">Sound</label>
-				   <input id="sound" type="checkbox"/>
+                    <div>High score: <span id="high_score"></span></div> 
+				  </div>
+                  <div id="sound-settings">
+                    <label for="sound">Sound</label>
+				    <input id="sound" type="checkbox"/>
                   </div>
                 <button class="Scoreboard-restart">
                     <span class="Scoreboard-restartText">Restart</span>
