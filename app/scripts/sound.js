@@ -2,7 +2,8 @@ window.Sound = (function() {
 	'use strict';
 	
 	// Taken from http://www.w3schools.com/games/game_sound.asp
-	var Sound = function(src) {
+	var Sound = function(src, el) {
+		this.el = el;
 		this.sound = document.createElement("audio");
 		this.sound.src = src;
 		this.sound.setAttribute("preload", "auto");
@@ -10,10 +11,16 @@ window.Sound = (function() {
 		this.sound.style.display = "none";
 		document.body.appendChild(this.sound);
 		this.play = function(){
-			this.sound.play();
+			if(this.el.is(':checked'))
+			{
+				this.sound.play();
+			}
 		}
 		this.stop = function(){
-			this.sound.pause();
+			if(this.el.checked)
+			{
+				this.pause.play();
+			}
 		}
 	}
 	

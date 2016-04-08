@@ -20,7 +20,8 @@ window.Game = (function() {
 		this.walls = [];
 		this.score = 0;
 		this.highScore = 0;
-		this.soundmanager = new window.SoundManager();
+		this.soundmanager = new window.SoundManager(this.el.find('#sound'));
+		if(this.el.find('#sound') === undefined) console.log("WTF");
 	};
 
 	/**
@@ -28,6 +29,8 @@ window.Game = (function() {
 	 * entity to update itself.
 	 */
 	Game.prototype.onFrame = function() {
+		this.soundmanager.music.play();
+		
 		// Check if the game loop should stop.
 		if (!this.isPlaying) {
 			return;
