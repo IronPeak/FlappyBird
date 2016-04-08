@@ -10,18 +10,21 @@ window.Sound = (function() {
 		this.sound.setAttribute('controls', 'none');
 		this.sound.style.display = 'none';
 		document.body.appendChild(this.sound);
-		this.play = function(){
-			if(this.el.is(':checked'))
-			{
-				this.sound.play();
-			}
-		};
-		this.stop = function(){
-			if(this.el.checked)
-			{
-				this.pause.play();
-			}
-		};
+	};
+	
+	Sound.prototype.play = function(){
+		if(this.el.is(':checked'))
+		{
+			this.sound.play();
+		}
+		else
+		{
+			this.sound.pause();
+		}
+	};
+	
+	Sound.prototype.stop = function(){
+		this.sound.pause();
 	};
 	
 	return Sound;

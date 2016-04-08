@@ -22,7 +22,7 @@ window.Game = (function() {
 		this.walls = [];
 		this.score = 0;
 		this.highScore = 0;
-		this.soundmanager = new window.SoundManager(this.el.find('#sound'));
+		this.soundmanager = new window.SoundManager(this.el.find('#sound-settings'));
 		this.gamestart = +new Date() / 1000;
 		this.ground = new window.Ground(this.el.find('.Ground'), this);
 		this.preloadGameImages();
@@ -35,13 +35,13 @@ window.Game = (function() {
 	 */
 	Game.prototype.onFrame = function() {
 		this.calculateGameSize();
-		
-		this.soundmanager.music.play();
-		
+				
 		// Check if the game loop should stop.
 		if (!this.isPlaying) {
 			return;
 		}
+		
+		this.soundmanager.music.play();
 		
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
@@ -153,6 +153,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
+		this.soundmanager.music.stop();
 		this.soundmanager.gameover.play();
 		if(this.score > this.highScore)
 		{
@@ -198,7 +199,7 @@ window.Game = (function() {
 		var img = new Image();
 		img.src = '../images/player_flap.png';
 		
-		var img = new Image();
+		img = new Image();
 		img.src = '../images/player_dead.png';
 	};
 	 
