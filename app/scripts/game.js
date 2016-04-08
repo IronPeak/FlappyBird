@@ -1,6 +1,8 @@
 
 window.Game = (function() {
 	'use strict';
+	
+	var TIME_BETWEEN_WALLS = 3;
 
 	/**
 	 * Main game class.
@@ -14,6 +16,9 @@ window.Game = (function() {
 		this.calculateGameSize();
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
+		this.lastWallSpawn = -1;
+		this.walls = [];
+		this.score = 0;
 	};
 
 	/**
@@ -33,11 +38,59 @@ window.Game = (function() {
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
 		
+		if(now > this.lastWallSpawn + TIME_BETWEEN_WALLS) {
+			this.lastWallSpawn = now;
+			var top = -Math.random() * 40 - 8;
+			var bot = top + 65;
+			this.createWall(100, bot);
+			this.createWall(100, top);
+		}
+		
 		// Update game entities.
 		this.player.onFrame(delta);
+		
+		for(var i = 0; i < this.walls.length; i++) {
+			if(this.walls[i] === undefined) {
+				continue;
+			}
+			this.walls[i].onFrame(delta);
+			if(this.walls[i].active === true)
+			{
+				if(this.walls[i].givePoint(this.player.pos.x) === true)
+				{
+					this.score++;
+				}
+				if(this.walls[i].collidedWithPlayer(this.player.pos.x, this.player.pos.y, this.player.width, this.player.height) === true)
+				{
+					this.gameover();
+				}
+			}
+			else
+			{
+				if(this.walls[i].outOfBounds() === true)
+				{
+					this.walls[i].el.remove();
+					delete this.walls[i];
+				}
+			}
+		}
 
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
+	};
+	
+	Game.prototype.createWall = function(x, y) {
+		var wall = $('<div class="Wall"></div>');
+		this.el.append(wall);
+		for(var i = 0; i < this.walls.length; i++)
+		{
+			if(this.walls[i] === undefined)
+			{
+				this.walls[i] = new window.Wall(wall, this, x, y);
+				return;
+			}
+		}
+		this.walls.push(new window.Wall(wall, this, x, y));
 	};
 
 	/**
@@ -45,7 +98,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.start = function() {
 		this.reset();
-
+		
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
@@ -57,6 +110,16 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
+		this.lastWallSpawn = -1;
+		this.score = 0;
+		for(var i = 0; i < this.walls.length; i++) {
+			if(this.walls[i] !== undefined)
+			{
+				this.walls[i].el.remove();
+				delete this.walls[i];
+			}
+		}
+		this.walls = [];
 	};
 
 	/**

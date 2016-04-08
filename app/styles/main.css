@@ -20,6 +20,16 @@
 	}
 }
 
+.Wall {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 10em;
+	height: 50em;
+	transform: translateZ(0);
+	background-color: red;
+}
+
 .Ground {
 	width: 200em;
 	height: 2.0em;

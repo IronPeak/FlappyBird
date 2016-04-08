@@ -7,10 +7,10 @@ window.Player = (function() {
 	// for 1024x576px canvas.
 	var MAX_VELOCITY = 30;
 	var MIN_VELOCITY = -30;
-	var JUMP_FORCE = 20;
+	var JUMP_FORCE = 50;
 	var WIDTH = 5;
 	var HEIGHT = 5;
-	var GRAVITY = -25;
+	var GRAVITY = -50;
 	var INITIAL_POSITION_X = 30;
 	var INITIAL_POSITION_Y = 25;
 
@@ -19,6 +19,8 @@ window.Player = (function() {
 		this.game = game;
 		this.pos = { x: 0, y: 0 };
 		this.velocity = 0;
+		this.width = WIDTH;
+		this.height = HEIGHT;
 	};
 
 	/**
