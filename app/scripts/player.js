@@ -25,6 +25,7 @@ window.Player = (function() {
 	 * Resets the state of the player for a new game.
 	 */
 	Player.prototype.reset = function() {
+		this.el.css('background-image', 'url("../images/player.png")');
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
 		this.velocity = 0;
@@ -32,6 +33,8 @@ window.Player = (function() {
 
 	Player.prototype.onFrame = function(delta) {
 		if (Controls.isJumping()) {
+			this.el.css('background-image', 'url("../images/player_flap.png")');
+			this.el.css('animation', 'player-flap 0.25s linear 1 running');
 			this.velocity = JUMP_FORCE;
 		}
 		this.velocity += delta * GRAVITY;
@@ -51,19 +54,16 @@ window.Player = (function() {
 
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)' + ' rotate(' + this.rotation(this.velocity) + 'deg)');
-		
-		if(this.velocity > 0)
-		{
-			this.el.css('background-image', 'url("../images/player_flap.png")');
-		}
-		else
+		if(this.velocity < 0)
 		{
 			this.el.css('background-image', 'url("../images/player.png")');
+			this.el.css('animation', 'none');
 		}
 	};
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.y < 0 || this.pos.y + HEIGHT > (this.game.WORLD_HEIGHT - 2)) {
+			this.el.css('background-image', 'url("../images/player_dead.png")');
 			return this.game.gameover();
 		}
 	};

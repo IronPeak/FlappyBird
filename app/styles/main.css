@@ -11,6 +11,15 @@
 	background-image: url('../images/player.png');
 }
 
+@keyframes player-flap {
+	from {
+		background-image: url('../images/player.png');
+	}
+	to {
+		background-image: url('../images/player_flap.png');
+	}
+}
+
 .Ground {
 	width: 102.4em;
 	height: 2.0em;
@@ -27,10 +36,10 @@
 
 @keyframes ground-move {
 	from {
-		width: 150em;
+		left: 50em;
 	}
 	to {
-		width: 100em;
+		left: 0em;
 	}
 }
 
