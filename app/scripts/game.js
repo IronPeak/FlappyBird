@@ -19,6 +19,8 @@ window.Game = (function() {
 		this.lastWallSpawn = -1;
 		this.walls = [];
 		this.score = 0;
+		this.highScore = 0;
+		this.soundmanager = new window.SoundManager();
 	};
 
 	/**
@@ -128,6 +130,19 @@ window.Game = (function() {
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
 
+		if(this.score > this.highScore)
+		{
+			this.highScore = this.score;
+			this.el.find('#game_msg').text('New Highscore!');
+		}
+		else
+		{
+			this.el.find('#game_msg').text('Game Over!');
+		}
+		
+		this.el.find('#score').text(this.score);
+		this.el.find('#high_score').text(this.highScore);
+		
 		// Should be refactored into a Scoreboard class.
 		var that = this;
 		var scoreboardEl = this.el.find('.Scoreboard');

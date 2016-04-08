@@ -37,6 +37,7 @@ window.Player = (function() {
 		if (Controls.isJumping()) {
 			this.el.css('background-image', 'url("../images/player_flap.png")');
 			this.el.css('animation', 'player-flap 0.25s linear 1 running');
+			this.game.soundmanager.flapsound.play();
 			this.velocity = JUMP_FORCE;
 		}
 		this.velocity += delta * GRAVITY;

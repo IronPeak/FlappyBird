@@ -54,6 +54,7 @@
 }
 
 .Scoreboard {
+	z-index: 100;
 	position: absolute;
 	left: 50%;
 	top: 10em;
@@ -75,7 +76,7 @@
 }
 
 .Scoreboard-restart {
-	margin-top: 20em;
+	margin-top: 3em;
 	font-size: inherit;
 	padding: 0.4em 1.5em;
 	border: 0.2em solid white;
