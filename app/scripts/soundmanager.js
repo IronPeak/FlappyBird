@@ -10,7 +10,7 @@ window.SoundManager = (function() {
 		this.flapsound = new window.Sound('../audio/flap.mp3', this.soundsel);
 		this.collect = new window.Sound('../audio/collect.mp3', this.soundsel);
 		this.deathsound = new window.Sound('../audio/death.mp3', this.soundsel);
-		this.gameover = new window.Sound('../audio/gameover.mp3', this.soundsel);
+		this.gameover = new window.Sound('../audio/gameover.mp3', this.musicel);
 	};
 	
 	return SoundManager;

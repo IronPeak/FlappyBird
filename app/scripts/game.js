@@ -158,7 +158,7 @@ window.Game = (function() {
 		if(this.score > this.highScore)
 		{
 			this.highScore = this.score;
-			this.el.find('#game-msg').text('New Highscore!');
+			this.el.find('#game-msg').text('Highscore!');
 		}
 		else
 		{
