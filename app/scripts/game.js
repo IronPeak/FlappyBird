@@ -32,7 +32,7 @@ window.Game = (function() {
 		var now = +new Date() / 1000,
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
-
+		
 		// Update game entities.
 		this.player.onFrame(delta);
 
