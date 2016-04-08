@@ -99,6 +99,13 @@
 	background-image: url('../images/ground.jpg');
 }
 
+.ingame-score {
+	z-index: 99;
+	position: absolute;
+	font-size: 5em;
+	right: 1em;
+}
+
 .Scoreboard {
 	z-index: 100;
 	position: absolute;
