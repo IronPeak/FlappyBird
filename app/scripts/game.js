@@ -98,18 +98,18 @@ window.Game = (function() {
 		window.requestAnimationFrame(this.onFrame);
 	};
 	
-	Game.prototype.createWall = function(x, y, collectable) {
+	Game.prototype.createWall = function(x, y, rotate) {
 		var wall = $('<div class="Wall"></div>');
 		this.el.append(wall);
 		for(var i = 0; i < this.walls.length; i++)
 		{
 			if(this.walls[i] === undefined)
 			{
-				this.walls[i] = new window.Wall(wall, this, x, y, collectable);
+				this.walls[i] = new window.Wall(wall, this, x, y, rotate);
 				return;
 			}
 		}
-		this.walls.push(new window.Wall(wall, this, x, y, collectable));
+		this.walls.push(new window.Wall(wall, this, x, y, rotate));
 	};
 	
 	Game.prototype.GetTimeBetweenWalls = function(time) {

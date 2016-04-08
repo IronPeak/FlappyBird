@@ -6,18 +6,19 @@ window.Wall = (function() {
 	var WIDTH = 10;
 	var HEIGHT = 50;
 	
-	var Wall = function(el, game, x, y, collectable) {
+	var Wall = function(el, game, x, y, rotate) {
 		this.el = el;
 		this.game = game;
 		this.pos = { x: x, y: y };
 		this.active = true;
-		this.collectable = collectable;
-		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
+		this.collectable = rotate;
+		this.rotation = rotate ? 180 : 0;
+		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)' + ' rotate(' + this.rotation + 'deg)');
 	};
 	
 	Wall.prototype.onFrame = function(delta) {
 		this.pos.x -= delta * SPEED;
-		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
+		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)' + ' rotate(' + this.rotation + 'deg)');
 	};
 	
 	Wall.prototype.collidedWithPlayer = function(playerX, playerY, playerWidth, playerHeight) {
