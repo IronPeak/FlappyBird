@@ -74,6 +74,7 @@ window.Game = (function() {
 				if(this.walls[i].collidedWithPlayer(this.player.pos.x, this.player.pos.y, this.player.width, this.player.height) === true)
 				{
 					this.soundmanager.deathsound.play();
+					this.player.setDeath();
 					this.gameover();
 				}
 			}
@@ -159,6 +160,7 @@ window.Game = (function() {
 		
 		this.el.find('#score').text(this.score);
 		this.el.find('#high_score').text(this.highScore);
+		this.el.find('.Ground').stop();
 		
 		// Should be refactored into a Scoreboard class.
 		var that = this;

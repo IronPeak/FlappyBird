@@ -66,9 +66,13 @@ window.Player = (function() {
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.y < 0 || this.pos.y + HEIGHT > (this.game.WORLD_HEIGHT - 5)) {
-			this.el.css('background-image', 'url("../images/player_dead.png")');
+			this.setDeath();
 			return this.game.gameover();
 		}
+	};
+	
+	Player.prototype.setDeath = function() {
+		this.el.css('background-image', 'url("../images/player_dead.png")');
 	};
 	
 	Player.prototype.rotation = function(vel) {

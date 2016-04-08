@@ -55,6 +55,7 @@
 }
 
 .Ground {
+	z-index: 50;
 	width: 200em;
 	height: 5.0em;
 	left: 0;
