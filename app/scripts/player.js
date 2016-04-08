@@ -50,12 +50,32 @@ window.Player = (function() {
 		this.checkCollisionWithBounds();
 
 		// Update UI
-		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
+		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)' + ' rotate(' + this.rotation(this.velocity) + 'deg)');
+		
+		if(this.velocity > 0)
+		{
+			this.el.css('background-image', 'url("../images/player_flap.png")');
+		}
+		else
+		{
+			this.el.css('background-image', 'url("../images/player.png")');
+		}
 	};
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.y < 0 || this.pos.y + HEIGHT > (this.game.WORLD_HEIGHT - 2)) {
 			return this.game.gameover();
+		}
+	};
+	
+	Player.prototype.rotation = function(vel) {
+		if(vel < 0)
+		{
+			return (vel / MIN_VELOCITY) * 45;
+		}
+		else
+		{
+			return -(vel / MAX_VELOCITY) * 45;
 		}
 	};
 
