@@ -30,6 +30,30 @@
 	background-color: red;
 }
 
+.Cloud {
+	position: absolute;
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+    transform: translateZ(0);
+	
+	top: 3em;
+    right: -4em;
+    width: 8em;
+    height: 8em;
+    background-image: url('../images/cloud.png');
+    animation: move-cloud 25s infinite linear;
+}
+
+@keyframes move-cloud {
+  from {
+		right: 0em;
+  }
+  to {
+		right: 102.4em;
+  }
+}
+
 .Ground {
 	width: 200em;
 	height: 2.0em;
