@@ -45,8 +45,8 @@ window.Game = (function() {
 		
 		if(now > this.lastWallSpawn + TIME_BETWEEN_WALLS) {
 			this.lastWallSpawn = now;
-			var top = -Math.random() * 40 - 8;
-			var bot = top + 65;
+			var top = -Math.random() * 36 - 12;
+			var bot = top + 67;
 			this.createWall(100, bot);
 			this.createWall(100, top);
 		}
