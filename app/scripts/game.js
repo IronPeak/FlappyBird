@@ -26,6 +26,7 @@ window.Game = (function() {
 		this.gamestart = +new Date() / 1000;
 		this.ground = new window.Ground(this.el.find('.Ground'), this);
 		this.preloadGameImages();
+		this.ingameScore = this.el.find('.ingame-score');
 	};
 
 	/**
@@ -54,8 +55,8 @@ window.Game = (function() {
 			this.lastWallSpawn = now;
 			var top = -Math.random() * 36 - 12;
 			var bot = top + 67;
-			this.createWall(100, bot);
-			this.createWall(100, top);
+			this.createWall(100, bot, false);
+			this.createWall(100, top, true);
 		}
 		
 		// Update game entities.
@@ -74,6 +75,7 @@ window.Game = (function() {
 				{
 					this.soundmanager.collect.play();
 					this.score++;
+					this.ingameScore.text(this.score);
 				}
 				if(this.walls[i].collidedWithPlayer(this.player.pos.x, this.player.pos.y, this.player.width, this.player.height) === true)
 				{
@@ -96,18 +98,18 @@ window.Game = (function() {
 		window.requestAnimationFrame(this.onFrame);
 	};
 	
-	Game.prototype.createWall = function(x, y) {
+	Game.prototype.createWall = function(x, y, collectable) {
 		var wall = $('<div class="Wall"></div>');
 		this.el.append(wall);
 		for(var i = 0; i < this.walls.length; i++)
 		{
 			if(this.walls[i] === undefined)
 			{
-				this.walls[i] = new window.Wall(wall, this, x, y);
+				this.walls[i] = new window.Wall(wall, this, x, y, collectable);
 				return;
 			}
 		}
-		this.walls.push(new window.Wall(wall, this, x, y));
+		this.walls.push(new window.Wall(wall, this, x, y, collectable));
 	};
 	
 	Game.prototype.GetTimeBetweenWalls = function(time) {

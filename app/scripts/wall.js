@@ -6,11 +6,12 @@ window.Wall = (function() {
 	var WIDTH = 10;
 	var HEIGHT = 50;
 	
-	var Wall = function(el, game, x, y) {
+	var Wall = function(el, game, x, y, collectable) {
 		this.el = el;
 		this.game = game;
 		this.pos = { x: x, y: y };
 		this.active = true;
+		this.collectable = collectable;
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
 	
@@ -40,7 +41,7 @@ window.Wall = (function() {
 		if(wallMaxX < playerX)
 		{
 			this.active = false;
-			return true;
+			return this.collectable;
 		}
 		return false;
 	};
