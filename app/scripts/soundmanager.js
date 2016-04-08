@@ -9,7 +9,7 @@ window.SoundManager = (function() {
 		this.collectpoint = new window.Sound('../audio/collect.mp3', el);
 		this.deathsound = new window.Sound('../audio/death.mp3', el);
 		this.gameover = new window.Sound('../audio/gameover.mp3', el);
-	}
+	};
 	
 	return SoundManager;
 	

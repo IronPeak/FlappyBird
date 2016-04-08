@@ -2,7 +2,9 @@
 window.Game = (function() {
 	'use strict';
 	
-	var TIME_BETWEEN_WALLS = 3;
+	var MIN_TIME_BETWEEN_WALLS = 1;
+	var MAX_TIME_BETWEEN_WALLS = 3;
+	var MIN_MAX_LERP_DURATION = 120;
 
 	/**
 	 * Main game class.
@@ -21,7 +23,7 @@ window.Game = (function() {
 		this.score = 0;
 		this.highScore = 0;
 		this.soundmanager = new window.SoundManager(this.el.find('#sound'));
-		if(this.el.find('#sound') === undefined) console.log("WTF");
+		this.gamestart = +new Date() / 1000;
 	};
 
 	/**
@@ -43,7 +45,10 @@ window.Game = (function() {
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
 		
-		if(now > this.lastWallSpawn + TIME_BETWEEN_WALLS) {
+		this.timebetweenwalls = this.GetTimeBetweenWalls(now);
+		console.log(this.timebetweenwalls);
+		
+		if(now > this.lastWallSpawn + this.timebetweenwalls) {
 			this.lastWallSpawn = now;
 			var top = -Math.random() * 36 - 12;
 			var bot = top + 67;
@@ -63,10 +68,12 @@ window.Game = (function() {
 			{
 				if(this.walls[i].givePoint(this.player.pos.x) === true)
 				{
+					this.soundmanager.collect.play();
 					this.score++;
 				}
 				if(this.walls[i].collidedWithPlayer(this.player.pos.x, this.player.pos.y, this.player.width, this.player.height) === true)
 				{
+					this.soundmanager.deathsound.play();
 					this.gameover();
 				}
 			}
@@ -97,6 +104,12 @@ window.Game = (function() {
 		}
 		this.walls.push(new window.Wall(wall, this, x, y));
 	};
+	
+	Game.prototype.GetTimeBetweenWalls = function(time) {
+		var diff = MAX_TIME_BETWEEN_WALLS - MIN_TIME_BETWEEN_WALLS;
+		var norm = (time - this.gamestart) / MIN_MAX_LERP_DURATION;
+		return Math.min((1 - norm) * diff + MIN_TIME_BETWEEN_WALLS, MAX_TIME_BETWEEN_WALLS);
+	};
 
 	/**
 	 * Starts a new game.
@@ -116,6 +129,7 @@ window.Game = (function() {
 	Game.prototype.reset = function() {
 		this.player.reset();
 		this.lastWallSpawn = -1;
+		this.gamestart = +new Date() / 1000;
 		this.score = 0;
 		for(var i = 0; i < this.walls.length; i++) {
 			if(this.walls[i] !== undefined)
@@ -132,7 +146,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
-
+		this.soundmanager.gameover.play();
 		if(this.score > this.highScore)
 		{
 			this.highScore = this.score;

@@ -65,7 +65,7 @@ window.Player = (function() {
 	};
 
 	Player.prototype.checkCollisionWithBounds = function() {
-		if (this.pos.y < 0 || this.pos.y + HEIGHT > (this.game.WORLD_HEIGHT - 2)) {
+		if (this.pos.y < 0 || this.pos.y + HEIGHT > (this.game.WORLD_HEIGHT - 5)) {
 			this.el.css('background-image', 'url("../images/player_dead.png")');
 			return this.game.gameover();
 		}
